@@ -1,186 +1,56 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Structureflow English｜英語を1文ずつ構造で理解</title>
-<meta name="description" content="英文を1文ずつ、骨格・意味・修飾に分けて理解するスマホ向け英語構造アプリ。">
-<meta name="theme-color" content="#0a1020">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Structureflow English GAME</title>
+<meta name="theme-color" content="#07101d">
 <style>
-:root{
-  --bg:#070b14;--panel:#0e1524;--panel2:#131d30;--line:#24324b;
-  --text:#f5f7fb;--muted:#9dacbf;--blue:#4f8cff;--green:#38d887;
-  --orange:#ff9f5a;--purple:#ad86ff;--yellow:#ffd768;--red:#ff6f7a
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:linear-gradient(180deg,#070b14,#09111d 55%,#070b14);color:var(--text);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
-button,textarea{font:inherit}.app{max-width:720px;margin:auto;padding:16px 14px 110px}
-.top{display:flex;align-items:center;justify-content:space-between;padding:4px 2px 16px}
-.logo{font-weight:900;letter-spacing:.05em;font-size:13px}.mini{font-size:11px;color:var(--muted)}
-.hero{padding:8px 2px 18px}.hero h1{font-size:clamp(30px,8vw,44px);line-height:1.08;margin:0 0 10px;letter-spacing:-.04em}
-.hero p{margin:0;color:#b8c4d6;line-height:1.75;font-size:14px}
-.flow{display:flex;align-items:center;gap:7px;margin-top:16px;overflow:auto}
-.flow span{white-space:nowrap;font-size:11px;font-weight:800;border:1px solid var(--line);background:#0b1320;padding:7px 9px;border-radius:999px;color:#bac6d8}
-.flow b{font-size:11px;color:#53657e}
-.card{background:linear-gradient(180deg,var(--panel),#0b1220);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 12px 30px #0004;margin-top:12px}
-.label{font-size:11px;color:#7fa9ff;font-weight:900;letter-spacing:.08em;margin-bottom:6px}
-.card h2{font-size:20px;margin:0 0 6px}.card p{font-size:13px;color:var(--muted);line-height:1.65;margin:0}
-textarea{width:100%;margin-top:12px;min-height:96px;border:1.5px solid #34445f;border-radius:16px;background:#070d18;color:#fff;padding:14px;font-size:17px;line-height:1.5;outline:none;resize:vertical}
-textarea:focus{border-color:#5c8fff;box-shadow:0 0 0 4px #4f8cff1c}
-.big{width:100%;border:0;border-radius:15px;padding:15px 16px;margin-top:10px;background:linear-gradient(90deg,#4f8cff,#6f76ff);color:#fff;font-weight:950;font-size:16px;cursor:pointer}
-.big:active{transform:translateY(1px)}
-.examples{display:flex;gap:7px;overflow:auto;margin-top:10px;padding-bottom:2px}
-.ex{white-space:nowrap;border:1px solid #2a3952;background:#0a1321;color:#c9d5e6;border-radius:999px;padding:8px 10px;font-size:12px;cursor:pointer}
-.results{display:none}.results.show{display:block}
-.stephead{display:flex;align-items:center;gap:10px;margin-bottom:12px}.stepnum{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#15284c;color:#8fb6ff;font-weight:950}
-.stephead h3{margin:0;font-size:18px}.stephead small{display:block;color:var(--muted);margin-top:2px}
-.chunks{display:flex;gap:8px;flex-wrap:wrap}.chunk{border-radius:14px;padding:12px 13px;min-width:90px;flex:1}.chunk b{display:block;font-size:10px;margin-bottom:5px;opacity:.8}.chunk strong{font-size:16px;line-height:1.35}
-.who{background:#122a50;color:#9ec0ff}.do{background:#103024;color:#88eab1}.what{background:#3a2417;color:#ffc08f}.extra{background:#2a2047;color:#d0b9ff}
-.core{font-size:22px;font-weight:950;line-height:1.5;background:#080f1a;border:1px dashed #41526e;border-radius:16px;padding:15px}
-.arrow{color:#567198;margin:0 7px}
-.note{margin-top:9px;font-size:12px;color:#9dacbf;line-height:1.6}
-.modrow{display:flex;gap:7px;flex-wrap:wrap}.mod{padding:9px 10px;border-radius:11px;border:1px solid #2c3c55;background:#0b1422;font-size:12px}.mod em{font-style:normal;color:#8091aa;margin-right:5px}
-.transform{display:grid;gap:8px}.tr{background:#0a1320;border:1px solid #1f3048;border-radius:14px;padding:11px 12px}.tr b{display:block;font-size:10px;color:#8fa2bd;margin-bottom:3px}.tr span{font-weight:850}
-.tip{background:linear-gradient(135deg,#121a2a,#17142a);border-color:#3a3464}.tip strong{color:#d3c4ff}
-.learn{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}
-@media(max-width:520px){.learn{grid-template-columns:1fr}}
-.lesson{border:1px solid #26364f;border-radius:15px;background:#0a1320;padding:13px}.lesson b{display:block;margin-bottom:4px}.lesson span{font-size:12px;color:var(--muted);line-height:1.5}
-.price{background:linear-gradient(135deg,#1b1b16,#11151d);border-color:#5f5128}.money{font-size:35px;font-weight:950;color:#ffe58f;margin:6px 0}.cta{display:block;text-align:center;background:var(--yellow);color:#2a2100;font-weight:950;border-radius:14px;padding:14px;margin-top:12px}
-.disclaimer{font-size:10px;color:#74839a;line-height:1.55;margin-top:8px}
-.sticky{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(690px,calc(100% - 20px));background:#0a1220ee;border:1px solid #2a3b56;border-radius:18px;padding:9px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;backdrop-filter:blur(10px);box-shadow:0 15px 40px #0008;z-index:50}
-.sticky div b{display:block;font-size:12px}.sticky div small{font-size:10px;color:#8ea0b9}.sticky a{background:#ffd768;color:#2a2100;padding:10px 12px;border-radius:12px;font-size:12px;font-weight:950;text-decoration:none}
-footer{text-align:center;color:#56667d;font-size:10px;padding-top:26px}
-</style>
-</head>
-<body>
+:root{--bg:#06101b;--panel:#0b1726;--line:#21344d;--text:#f7f9fc;--muted:#94a7c0;--blue:#4f8cff;--cyan:#5ad7ff;--gold:#ffd45e;--green:#4be39a;--red:#ff7280}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% -10%,#123c77 0,transparent 30%),linear-gradient(180deg,#07101d,#050a12);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
+button{font:inherit}.app{max-width:720px;margin:auto;padding:14px 14px 90px}.top{display:flex;justify-content:space-between;align-items:center;padding:6px 2px 14px}.logo{font-size:13px;font-weight:950;letter-spacing:.06em}.xp{font-size:12px;color:var(--gold);font-weight:900}
+.hero{padding:12px 2px 16px}.hero h1{font-size:34px;line-height:1.05;margin:0 0 8px;letter-spacing:-.04em}.hero p{margin:0;color:#afbdd0;line-height:1.6;font-size:13px}
+.status{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:13px}.stat{background:#0b1725;border:1px solid var(--line);border-radius:14px;padding:10px}.stat b{display:block;font-size:17px}.stat span{font-size:10px;color:var(--muted)}
+.bar{height:8px;background:#101d2c;border-radius:999px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.worlds{display:flex;gap:8px;overflow:auto;padding:4px 0 12px}.world{min-width:150px;border:1px solid var(--line);background:#0a1523;border-radius:16px;padding:11px;cursor:pointer}.world.active{border-color:#4f8cff;background:#0f2240}.world.locked{opacity:.45}.world b{display:block;font-size:12px}.world span{font-size:10px;color:var(--muted)}
+.game{background:linear-gradient(180deg,#0d1929,#09131f);border:1px solid #263a55;border-radius:24px;padding:18px;box-shadow:0 16px 45px #0006}.level{font-size:11px;color:#79a9ff;font-weight:900;letter-spacing:.08em}.game h2{font-size:24px;margin:7px 0 4px}.prompt{color:#a8b8ce;font-size:13px;line-height:1.5}.sentence{background:#050c15;border:1px solid #233854;border-radius:16px;padding:16px;margin:14px 0;font-size:18px;font-weight:850;line-height:1.55}
+.choices{display:grid;gap:9px}.choice{border:1px solid #2a3f5b;background:#0b1725;color:#f2f6fb;border-radius:14px;padding:13px;text-align:left;font-weight:800;cursor:pointer}.choice:hover{border-color:#4f8cff}.choice.correct{border-color:#39cf85;background:#0d2a1e;color:#9af0c0}.choice.wrong{border-color:#e85b69;background:#30131a;color:#ffb4ba}
+.feedback{display:none;margin-top:12px;border-radius:14px;padding:12px;line-height:1.55;font-size:13px}.feedback.show{display:block}.feedback.ok{background:#0e2a1e;color:#a0edc1;border:1px solid #1d6945}.feedback.ng{background:#2b1218;color:#ffb8be;border:1px solid #6b2732}.next{display:none;width:100%;margin-top:10px;border:0;border-radius:14px;background:linear-gradient(90deg,#4f8cff,#6b72ff);color:#fff;font-weight:950;padding:14px;cursor:pointer}.next.show{display:block}
+.map{margin-top:14px;background:#0a1421;border:1px solid var(--line);border-radius:18px;padding:13px}.map h3{margin:0 0 10px;font-size:14px}.nodes{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.node{aspect-ratio:1;display:grid;place-items:center;border-radius:10px;background:#111f31;border:1px solid #263a55;font-size:11px;color:#8fa2bb}.node.done{background:#103421;border-color:#2b8a58;color:#8cf0b8}.node.now{background:#16325d;border-color:#4f8cff;color:#b7d1ff}.node.lock{opacity:.35}
+.paywall{margin-top:14px;border:1px solid #655528;background:linear-gradient(180deg,#1c1a12,#0d1118);border-radius:22px;padding:20px;text-align:center}.lock{font-size:30px}.paywall h2{margin:6px 0}.paywall p{font-size:13px;color:#a9b6c8;line-height:1.6}.price{font-size:38px;font-weight:950;color:#ffe08a;margin:8px 0}.buy{display:block;background:var(--gold);color:#2b2100;border-radius:14px;padding:14px;font-weight:950;text-decoration:none}.paywall small{display:block;color:#7f8da0;font-size:10px;margin-top:8px;line-height:1.5}
+.complete{display:none;text-align:center;background:#0c1b2c;border:1px solid #335172;border-radius:22px;padding:24px;margin-top:14px}.complete.show{display:block}.complete h2{font-size:28px;margin:6px}.complete p{color:#aab8cb;font-size:13px;line-height:1.6}
+.reset{margin-top:12px;background:transparent;color:#8fa2bb;border:1px solid #2a3d56;border-radius:12px;padding:9px 12px}
+footer{text-align:center;color:#53657c;font-size:10px;padding:24px 0}
+</style></head><body>
 <div class="app">
-  <div class="top">
-    <div class="logo">STRUCTUREFLOW ENGLISH</div>
-    <div class="mini">英語構造理解</div>
-  </div>
-
-  <section class="hero">
-    <h1>英語を1文ずつ、<br>見える形にする。</h1>
-    <p>最初にやることは1つだけ。英文を入れて「分解する」を押す。<br>文法用語より先に、誰が・どうする・何を・追加情報を見る。</p>
-    <div class="flow"><span>① 入力</span><b>→</b><span>② 分解</span><b>→</b><span>③ 骨格</span><b>→</b><span>④ 変形</span></div>
-  </section>
-
-  <section class="card">
-    <div class="label">START HERE</div>
-    <h2>まず1文入れる</h2>
-    <p>短い英文から試すと分かりやすいです。</p>
-    <textarea id="input">I bought a book yesterday.</textarea>
-    <button class="big" id="analyze">この英文を分解する</button>
-    <div class="examples">
-      <button class="ex">I like music.</button>
-      <button class="ex">She is happy.</button>
-      <button class="ex">We watched a movie yesterday.</button>
-      <button class="ex">I want to study English.</button>
-    </div>
-  </section>
-
-  <div class="results" id="results">
-    <section class="card">
-      <div class="stephead"><div class="stepnum">1</div><div><h3>まず4つに分ける</h3><small>日本語訳より先に構造を見る</small></div></div>
-      <div class="chunks">
-        <div class="chunk who"><b>WHO｜誰が</b><strong id="who">—</strong></div>
-        <div class="chunk do"><b>DO｜どうする</b><strong id="do">—</strong></div>
-        <div class="chunk what"><b>WHAT｜何を/何が</b><strong id="what">—</strong></div>
-        <div class="chunk extra"><b>EXTRA｜追加</b><strong id="extra">—</strong></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="stephead"><div class="stepnum">2</div><div><h3>骨格だけを見る</h3><small>長文でも最初にここを探す</small></div></div>
-      <div class="core" id="core">—</div>
-      <div class="note" id="pattern">—</div>
-    </section>
-
-    <section class="card">
-      <div class="stephead"><div class="stepnum">3</div><div><h3>残りは「追加説明」</h3><small>全部を同じ重要度で読まない</small></div></div>
-      <div class="modrow" id="mods"></div>
-      <div class="note">長い英文でも、骨格を先に取り、残りを後から戻すと読みやすくなります。</div>
-    </section>
-
-    <section class="card">
-      <div class="stephead"><div class="stepnum">4</div><div><h3>同じ文を変形する</h3><small>文法は別単元ではなく「変形」として覚える</small></div></div>
-      <div class="transform" id="transform"></div>
-    </section>
-
-    <section class="card tip">
-      <strong>ここまで見えたらOK。</strong>
-      <p style="margin-top:6px">最初から5文型・不定詞・関係詞を全部考えなくて大丈夫です。まず「誰が → どうする → 何を → 追加」の順番を自動化します。</p>
-    </section>
-  </div>
-
-  <section class="card">
-    <div class="label">NEXT</div>
-    <h2>この順番で覚える</h2>
-    <div class="learn">
-      <div class="lesson"><b>1｜骨格</b><span>S / V / O / C。まず中心文を取る。</span></div>
-      <div class="lesson"><b>2｜時間</b><span>現在・過去・未来・進行・完了。</span></div>
-      <div class="lesson"><b>3｜変形</b><span>不定詞・動名詞・分詞。</span></div>
-      <div class="lesson"><b>4｜追加説明</b><span>前置詞・形容詞・副詞・関係詞。</span></div>
-    </div>
-  </section>
-
-  <section class="card price">
-    <div class="label" style="color:#e3c45d">COMPLETE GUIDE</div>
-    <h2>英語構造理解｜完全版</h2>
-    <div class="money">¥1,980</div>
-    <p>中学英語から長文までを、バラバラの文法ではなく1枚の構造として整理した教材。</p>
-    <a class="cta" href="https://note.com/structureflow/n/ncb2b48c8ccc6" target="_blank" rel="noopener">完全版を見る</a>
-    <div class="disclaimer">※ 本サイトの自動分解は学習用βです。複雑な英文では誤判定する場合があります。学習成果・試験成績等を保証するものではありません。</div>
-  </section>
-
-  <footer>Structureflow English｜ブラウザ内処理 / 外部AI APIなし</footer>
+<div class="top"><div class="logo">STRUCTUREFLOW ENGLISH GAME</div><div class="xp" id="xp">XP 0</div></div>
+<section class="hero"><h1>英文の構造を<br>攻略する。</h1><p>訳す前に、骨格を見抜く。無料体験はWORLD 1の6ステージ。</p>
+<div class="status"><div class="stat"><b id="stageStat">1/6</b><span>STAGE</span></div><div class="stat"><b id="streak">0</b><span>STREAK</span></div><div class="stat"><b id="accuracy">—</b><span>ACCURACY</span></div></div>
+<div class="bar"><i id="bar"></i></div></section>
+<div class="worlds" id="worlds"></div>
+<section class="game" id="game">
+<div class="level" id="level">WORLD 1 · STAGE 1</div><h2 id="title">Loading...</h2><div class="prompt" id="prompt"></div><div class="sentence" id="sentence"></div><div class="choices" id="choices"></div><div class="feedback" id="feedback"></div><button class="next" id="next">次のステージへ →</button>
+</section>
+<div class="map"><h3>STAGE MAP</h3><div class="nodes" id="nodes"></div></div>
+<section class="paywall" id="paywall">
+<div class="lock">🔒</div><h2>WORLD 2 以降は完全版</h2>
+<p>全36ステージ。VERB / TIME / TRANSFORM / CONNECT / TEXTまで進みます。</p>
+<div class="price">¥2,480</div>
+<a class="buy" href="https://note.com/structureflow/n/ncb2b48c8ccc6" target="_blank" rel="noopener">完全版を入手する</a>
+<small>Structureflow有料note購入者向け完全版として販売。</small>
+</section>
+<section class="complete" id="complete"><div style="font-size:34px">🏁</div><h2>体験版クリア</h2><p>WORLD 1を完走しました。完全版では残り30ステージへ進めます。</p><button class="reset" id="reset">最初からやり直す</button></section>
+<footer>Structureflow English GAME｜ブラウザ内完結・外部AI APIなし</footer>
 </div>
-
-<div class="sticky">
-  <div><b>英語は「骨格 → 追加」で見る</b><small>無料体験から始める</small></div>
-  <a href="#input">1文試す</a>
-</div>
-
 <script>
-const verbs=new Set(['am','is','are','was','were','be','been','being','like','likes','liked','love','loves','loved','want','wants','wanted','need','needs','needed','study','studies','studied','work','works','worked','play','plays','played','buy','buys','bought','give','gives','gave','given','make','makes','made','live','lives','lived','open','opens','opened','watch','watches','watched','go','goes','went','gone','eat','eats','ate','eaten','know','knows','knew','known','read','reads','run','runs','ran','see','sees','saw','seen','call','calls','called','finish','finishes','finished','have','has','had','can','could','will','would','may','might','must','should','do','does','did']);
-const be=new Set(['am','is','are','was','were','be','been','being']);
-const extras=new Set(['yesterday','today','tomorrow','now','here','there','quickly','slowly','carefully','usually','often','always','sometimes','never']);
-const preps=new Set(['in','on','at','with','for','from','to','by','of','about','after','before','under','over','into','through']);
-function clean(s){return s.trim().replace(/[.!?]+$/,'').replace(/\s+/g,' ')}
-function words(s){return clean(s).split(' ').filter(Boolean)}
-function isVerb(w){const x=w.toLowerCase();return verbs.has(x)||/(ed|ing)$/.test(x)}
-function analyze(s){
- const a=words(s);if(!a.length)return null;
- let vi=a.findIndex((w,i)=>i>0&&isVerb(w)); if(vi<0)vi=a.findIndex(isVerb); if(vi<0)vi=Math.min(1,a.length-1);
- const who=a.slice(0,vi).join(' ')||a[0], v=a[vi]||'', rest=a.slice(vi+1);
- let split=rest.findIndex(w=>extras.has(w.toLowerCase())||preps.has(w.toLowerCase()));
- let what='',extra=''; if(split>=0){what=rest.slice(0,split).join(' ');extra=rest.slice(split).join(' ')}else what=rest.join(' ');
- let pattern=be.has(v.toLowerCase())&&what?'SVC候補：be動詞の後ろが主語の説明':'SVO/SV候補：主語→動詞→対象';
- return{who,v,what,extra,pattern}
-}
-function base(v){const m={is:'be',am:'be',are:'be',was:'be',were:'be',went:'go',bought:'buy',gave:'give',made:'make',saw:'see',ate:'eat',knew:'know',ran:'run',had:'have',did:'do'};return m[v.toLowerCase()]||v.replace(/(ed|s)$/,'')}
-function past(v){const m={be:'was',go:'went',buy:'bought',give:'gave',make:'made',see:'saw',eat:'ate',know:'knew',run:'ran',have:'had',do:'did'};return m[v.toLowerCase()]||(/e$/.test(v)?v+'d':v+'ed')}
-function render(){
- const raw=document.querySelector('#input').value,r=analyze(raw);if(!r)return;
- document.querySelector('#results').classList.add('show');
- document.querySelector('#who').textContent=r.who||'—';document.querySelector('#do').textContent=r.v||'—';document.querySelector('#what').textContent=r.what||'—';document.querySelector('#extra').textContent=r.extra||'—';
- document.querySelector('#core').innerHTML=[r.who,r.v,r.what].filter(Boolean).map((x,i)=>i?'<span class="arrow">→</span>'+x:x).join('');
- document.querySelector('#pattern').textContent=r.pattern;
- const mods=document.querySelector('#mods');mods.innerHTML='';
- if(r.extra){r.extra.split(' ').forEach(x=>{const d=document.createElement('span');d.className='mod';d.innerHTML='<em>追加</em>'+x;mods.appendChild(d)})}
- else {mods.innerHTML='<span class="mod"><em>追加</em>なし</span>'}
- const b=base(r.v), tail=[r.what,r.extra].filter(Boolean).join(' ');
- const ts=be.has(r.v.toLowerCase())
- ?[['元の文',clean(raw)+'.'],['過去の例',r.who+' was '+tail+'.'],['未来の例',r.who+' will be '+tail+'.'],['否定',r.who+' is not '+tail+'.']]
- :[['基本形',r.who+' '+b+(tail?' '+tail:'')+'.'],['過去形',r.who+' '+past(b)+(tail?' '+tail:'')+'.'],['未来形',r.who+' will '+b+(tail?' '+tail:'')+'.'],['否定',r.who+' do not '+b+(tail?' '+tail:'')+'.']];
- const box=document.querySelector('#transform');box.innerHTML='';ts.forEach(x=>{const d=document.createElement('div');d.className='tr';d.innerHTML='<b>'+x[0]+'</b><span>'+x[1]+'</span>';box.appendChild(d)});
- document.querySelector('#results').scrollIntoView({behavior:'smooth',block:'start'})
-}
-document.querySelector('#analyze').onclick=render;
-document.querySelectorAll('.ex').forEach(b=>b.onclick=()=>{document.querySelector('#input').value=b.textContent;render()});
+const FULL=false;const stages=[{"world":1,"world_name":"CORE","title":"S + V を見抜け","type":"choice","prompt":"英文の骨格はどれ？","sentence":"Birds fly in the sky.","choices":["Birds fly","fly in the sky","Birds in the sky"],"answer":0,"explain":"まず主語 Birds と動詞 fly。in the sky は追加情報。"},{"world":1,"world_name":"CORE","title":"誰が？","type":"choice","prompt":"WHO（主語）はどれ？","sentence":"My brother plays tennis every Sunday.","choices":["My brother","plays","tennis"],"answer":0,"explain":"『誰がする？』を見ると My brother。"},{"world":1,"world_name":"CORE","title":"どうする？","type":"choice","prompt":"DO（動詞）はどれ？","sentence":"She studies English after dinner.","choices":["She","studies","English"],"answer":1,"explain":"動作の中心は studies。"},{"world":1,"world_name":"CORE","title":"対象を取れ","type":"choice","prompt":"WHAT（目的語）はどれ？","sentence":"I bought a book yesterday.","choices":["I","bought","a book"],"answer":2,"explain":"bought の対象は a book。yesterday は追加情報。"},{"world":1,"world_name":"CORE","title":"SVC","type":"choice","prompt":"この文で She と同じものを説明している語は？","sentence":"She is happy.","choices":["is","happy","She is"],"answer":1,"explain":"SVCでは S = C。She = happy。"},{"world":1,"world_name":"CORE","title":"WORLD 1 BOSS","type":"choice","prompt":"長くても骨格を取れ。中心は？","sentence":"The young student quickly opened the heavy door in the classroom.","choices":["The student opened the door","The young student quickly","the heavy door in the classroom"],"answer":0,"explain":"young / quickly / heavy / in the classroom を外すと骨格が残る。"}];
+let idx=Number(localStorage.getItem('sf_game_idx_6')||0);if(idx>=stages.length)idx=0;
+let xp=Number(localStorage.getItem('sf_game_xp_6')||0),correct=Number(localStorage.getItem('sf_game_correct_6')||0),answered=Number(localStorage.getItem('sf_game_answered_6')||0),streak=0,locked=false;
+function save(){localStorage.setItem('sf_game_idx_6',idx);localStorage.setItem('sf_game_xp_6',xp);localStorage.setItem('sf_game_correct_6',correct);localStorage.setItem('sf_game_answered_6',answered)}
+function renderWorlds(){const box=document.getElementById('worlds');box.innerHTML='';const names=['CORE','VERB','TIME','TRANSFORM','CONNECT','TEXT'];names.forEach((n,i)=>{const w=i+1,d=document.createElement('div');d.className='world'+(stages[idx]&&stages[idx].world===w?' active':'')+((!FULL&&w>1)?' locked':'');d.innerHTML='<b>WORLD '+w+' · '+n+'</b><span>'+((!FULL&&w>1)?'完全版':'6 STAGES')+'</span>';box.appendChild(d)})}
+function renderNodes(){const box=document.getElementById('nodes');box.innerHTML='';for(let i=0;i<stages.length;i++){const d=document.createElement('div');d.className='node '+(i<idx?'done':i===idx?'now':'');d.textContent=i+1;box.appendChild(d)}}
+function render(){if(idx>=stages.length){document.getElementById('game').style.display='none';document.getElementById('complete').classList.add('show');return}const s=stages[idx];locked=false;document.getElementById('level').textContent='WORLD '+s.world+' · STAGE '+(idx+1);document.getElementById('title').textContent=s.title;document.getElementById('prompt').textContent=s.prompt;document.getElementById('sentence').textContent=s.sentence;document.getElementById('stageStat').textContent=(idx+1)+'/6';document.getElementById('xp').textContent='XP '+xp;document.getElementById('streak').textContent=streak;document.getElementById('accuracy').textContent=answered?Math.round(correct/answered*100)+'%':'—';document.getElementById('bar').style.width=(idx/6*100)+'%';const c=document.getElementById('choices');c.innerHTML='';s.choices.forEach((x,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=x;b.onclick=()=>answer(i,b);c.appendChild(b)});const f=document.getElementById('feedback');f.className='feedback';f.textContent='';document.getElementById('next').className='next';renderWorlds();renderNodes()}
+function answer(choice,btn){if(locked)return;locked=true;answered++;const s=stages[idx],all=[...document.querySelectorAll('.choice')],ok=choice===s.answer;all[s.answer].classList.add('correct');if(!ok)btn.classList.add('wrong');const f=document.getElementById('feedback');f.className='feedback show '+(ok?'ok':'ng');if(ok){correct++;streak++;xp+=100+Math.min(streak,5)*10;f.innerHTML='<b>正解 +'+(100+Math.min(streak,5)*10)+' XP</b><br>'+s.explain}else{streak=0;f.innerHTML='<b>ここを確認</b><br>'+s.explain}document.getElementById('xp').textContent='XP '+xp;document.getElementById('streak').textContent=streak;document.getElementById('accuracy').textContent=Math.round(correct/answered*100)+'%';document.getElementById('next').classList.add('show');save()}
+document.getElementById('next').onclick=()=>{idx++;save();render();window.scrollTo({top:0,behavior:'smooth'})};
+document.getElementById('reset').onclick=()=>{idx=0;xp=0;correct=0;answered=0;streak=0;save();location.reload()};
 render();
-</script>
-</body>
-</html>
+</script></body></html>
