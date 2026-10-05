@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Structureflow English｜英語構造理解アプリ</title>
+<meta name="description" content="英文をWHO / DO / WHAT / EXTRAとS/V/O/Cに分け、骨格・修飾・変形を視覚的に理解する英語構造学習アプリ。" />
+<style>
+:root{--bg:#f5f8ff;--card:#fff;--ink:#10213b;--muted:#63708a;--line:#d9e2f1;--blue:#2563eb;--green:#16a34a;--orange:#ea580c;--violet:#7c3aed;--navy:#0b2a53;--soft:#eef4ff}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;background:linear-gradient(180deg,#eef4ff 0,#f8fbff 45%,#fff 100%);color:var(--ink)}
+.shell{max-width:980px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 18px}.brand{font-weight:900;letter-spacing:.02em}.pill{font-size:12px;padding:7px 10px;border:1px solid var(--line);background:white;border-radius:999px;color:var(--muted)}
+.hero{background:linear-gradient(135deg,#0b2a53,#154f9f);color:white;border-radius:28px;padding:26px;box-shadow:0 18px 50px #0b2a5322}.hero h1{font-size:clamp(28px,7vw,48px);line-height:1.08;margin:0 0 10px}.hero p{margin:0;color:#dbeafe;line-height:1.7}.map{margin-top:16px;display:flex;gap:8px;overflow:auto;padding-bottom:3px}.map span{white-space:nowrap;font-size:12px;background:#ffffff14;border:1px solid #ffffff2b;padding:8px 10px;border-radius:10px}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 8px 28px #1f3a5f0d}.card h2{font-size:18px;margin:0 0 12px}.hint{color:var(--muted);font-size:13px;line-height:1.6}
+textarea{width:100%;min-height:110px;border:1.5px solid var(--line);border-radius:16px;padding:14px;font-size:17px;resize:vertical;outline:none}textarea:focus{border-color:#7aa6ff;box-shadow:0 0 0 4px #2563eb10}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btn{appearance:none;border:0;border-radius:13px;padding:12px 15px;font-weight:800;cursor:pointer}.primary{background:var(--blue);color:white}.ghost{background:var(--soft);color:var(--navy)}
+.examples{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;cursor:pointer}
+.boxes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}@media(max-width:540px){.boxes{grid-template-columns:repeat(2,1fr)}}.box{border-radius:15px;padding:12px;min-height:86px}.box b{display:block;font-size:12px;margin-bottom:6px}.box .value{font-weight:900;line-height:1.35}.who{background:#e8f1ff;color:#164e9a}.do{background:#e9f9ef;color:#136c35}.what{background:#fff1e7;color:#a43c09}.extra{background:#f1eafe;color:#5b2ea6}
+.result{display:none}.result.show{display:block}.skeleton{font-size:20px;font-weight:900;background:#f7f9fc;border:1px dashed #b8c5d8;border-radius:15px;padding:14px;margin-top:10px}.tokens{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.token{padding:7px 9px;border-radius:9px;background:#f0f4fa;border:1px solid var(--line);font-size:13px}.tag{font-size:10px;font-weight:900;opacity:.65;margin-right:4px}
+.drill{display:grid;gap:8px;margin-top:10px}.drill-item{display:flex;align-items:flex-start;gap:8px;padding:11px;background:#f8fafc;border-radius:13px}.num{width:24px;height:24px;border-radius:8px;background:#e6eefb;display:grid;place-items:center;font-size:12px;font-weight:900;flex:0 0 auto}.answer{font-weight:800}.small{font-size:12px;color:var(--muted)}
+.lock{border:1px solid #f3cf77;background:#fff9e9}.features{display:grid;gap:7px;margin:10px 0}.feature{font-size:13px}.feature:before{content:'✓';font-weight:900;margin-right:7px;color:var(--green)}
+.footer{padding:28px 4px 8px;color:var(--muted);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="top"><div class="brand">STRUCTUREFLOW ENGLISH</div><div class="pill">構造で理解する英語</div></div>
+  <section class="hero">
+    <h1>英語を、<br>「構造」で見える化。</h1>
+    <p>英文を丸暗記しない。まず骨格をつかみ、修飾を分け、1文を変形して使える形へ。</p>
+    <div class="map"><span>SOUND</span><span>WORD</span><span>PHRASE</span><span>CLAUSE</span><span>SENTENCE</span><span>PARAGRAPH</span><span>TEXT</span></div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>英文を入力</h2>
+      <div class="hint">まずは中学〜高校初級レベルの英文で試してください。完全なAI解析ではなく、学習用のルールベースMVPです。</div>
+      <textarea id="input">The young man bought a new car yesterday.</textarea>
+      <div class="actions"><button class="btn primary" id="analyze">構造を見る</button><button class="btn ghost" id="clear">クリア</button></div>
+      <div class="examples">
+        <button class="chip">I like music.</button>
+        <button class="chip">She is happy.</button>
+        <button class="chip">I want to study English.</button>
+        <button class="chip">The man who lives here bought a car.</button>
+      </div>
+    </section>
+
+    <section class="card lock">
+      <h2>このアプリの学び方</h2>
+      <div class="features">
+        <div class="feature">WHO / DO / WHAT / EXTRA に分解</div>
+        <div class="feature">S / V / O / C の骨格を見る</div>
+        <div class="feature">修飾を外して中心文を確認</div>
+        <div class="feature">同じ文を時制・否定・疑問へ変形</div>
+      </div>
+      <div class="small">MBTI診断ではありません。「全体像・関係・パターンから理解したい人」を想定した設計です。</div>
+    </section>
+  </div>
+
+  <section class="card result" id="result" style="margin-top:16px">
+    <h2>1｜WHO / DO / WHAT / EXTRA</h2>
+    <div class="boxes">
+      <div class="box who"><b>WHO｜誰が・何が</b><div class="value" id="who">—</div></div>
+      <div class="box do"><b>DO｜どうする</b><div class="value" id="do">—</div></div>
+      <div class="box what"><b>WHAT｜何を・何が</b><div class="value" id="what">—</div></div>
+      <div class="box extra"><b>EXTRA｜追加情報</b><div class="value" id="extra">—</div></div>
+    </div>
+
+    <h2 style="margin-top:22px">2｜英文の骨格</h2>
+    <div class="skeleton" id="skeleton">—</div>
+    <div class="hint" id="pattern"></div>
+
+    <h2 style="margin-top:22px">3｜語の役割</h2>
+    <div class="tokens" id="tokens"></div>
+
+    <h2 style="margin-top:22px">4｜変形ドリル</h2>
+    <div class="drill" id="drill"></div>
+  </section>
+
+  <section class="card" style="margin-top:16px">
+    <h2>学習MAP</h2>
+    <div class="hint">このMVPでは「骨格→修飾→変形」の入口を実装。次の段階で、関係詞・不定詞・分詞・完了形・長文の階層分解を増やせます。</div>
+    <div class="actions" style="margin-top:14px">
+      <span class="pill">BUILD｜骨格</span><span class="pill">MODIFY｜修飾</span><span class="pill">TRANSFORM｜変形</span><span class="pill">CONNECT｜接続</span>
+    </div>
+  </section>
+
+  <div class="footer">Structureflow English — educational prototype</div>
+</div>
+<script>
+const commonVerbs = new Set(['am','is','are','was','were','be','been','being','like','likes','liked','love','loves','loved','want','wants','wanted','need','needs','needed','study','studies','studied','work','works','worked','play','plays','played','buy','buys','bought','give','gives','gave','given','make','makes','made','live','lives','lived','open','opens','opened','watch','watches','watched','go','goes','went','gone','eat','eats','ate','eaten','know','knows','knew','known','read','reads','run','runs','ran','see','sees','saw','seen','call','calls','called','finish','finishes','finished','have','has','had','can','could','will','would','may','might','must','should','do','does','did']);
+const beVerbs = new Set(['am','is','are','was','were','be','been','being']);
+const extras = new Set(['yesterday','today','tomorrow','now','here','there','quickly','slowly','carefully','usually','often','always','sometimes','never']);
+const prep = new Set(['in','on','at','with','for','from','to','by','of','about','after','before','under','over','into','through']);
+function clean(s){return s.trim().replace(/[.!?]+$/,'').replace(/\s+/g,' ')}
+function wordsOf(s){return clean(s).split(' ').filter(Boolean)}
+function isVerb(w){const x=w.toLowerCase(); return commonVerbs.has(x)||/(ed|ing)$/.test(x)}
+function analyzeSentence(s){
+  const words=wordsOf(s); if(!words.length)return null;
+  let vi=words.findIndex((w,i)=>i>0&&isVerb(w)); if(vi<0)vi=words.findIndex(isVerb); if(vi<0)vi=Math.min(1,words.length-1);
+  let who=words.slice(0,vi).join(' ')||words[0]; let verb=words[vi]||'';
+  let rest=words.slice(vi+1);
+  let extraStart=rest.findIndex(w=>extras.has(w.toLowerCase())||prep.has(w.toLowerCase()));
+  let what='',extra='';
+  if(extraStart>=0){what=rest.slice(0,extraStart).join(' ');extra=rest.slice(extraStart).join(' ')}else{what=rest.join(' ')}
+  if(beVerbs.has(verb.toLowerCase())&&what){return {who,verb,what,extra,pattern:'SVC候補｜be動詞の後ろは主語の説明になっているか確認',skeleton:`${who} ${verb} ${what}`}}
+  let pattern=what?'SVO候補｜主語 + 動詞 + 対象':'SV候補｜主語 + 動詞';
+  if(/\b(who|that|which)\b/i.test(s)) pattern+='｜関係詞を含むため、名詞への追加説明あり';
+  return {who,verb,what,extra,pattern,skeleton:[who,verb,what].filter(Boolean).join(' ')}
+}
+function past(v){const m={am:'was',is:'was',are:'were',go:'went',buy:'bought',give:'gave',make:'made',see:'saw',eat:'ate',know:'knew',run:'ran',have:'had',do:'did'};const x=v.toLowerCase();return m[x]||(/e$/.test(v)?v+'d':v+'ed')}
+function base(v){const m={is:'be',am:'be',are:'be',was:'be',were:'be',went:'go',bought:'buy',gave:'give',made:'make',saw:'see',ate:'eat',knew:'know',ran:'run',had:'have',did:'do'};return m[v.toLowerCase()]||v.replace(/(ed|s)$/,'')}
+function render(){
+ const raw=document.querySelector('#input').value; const a=analyzeSentence(raw); if(!a)return;
+ document.querySelector('#result').classList.add('show');
+ ['who','do','what','extra'].forEach(k=>document.querySelector('#'+k).textContent=k==='do'?a.verb:(a[k]||'—'));
+ document.querySelector('#skeleton').textContent=a.skeleton+'.'; document.querySelector('#pattern').textContent=a.pattern;
+ const toks=wordsOf(raw); const vi=toks.findIndex((w,i)=>i>0&&isVerb(w)); const tokenWrap=document.querySelector('#tokens');tokenWrap.innerHTML='';
+ toks.forEach((w,i)=>{const d=document.createElement('span');d.className='token';let tag='修飾';if(i<vi)tag='S';else if(i===vi)tag='V';else if(a.what&&i<=vi+a.what.split(' ').length)tag='O/C';d.innerHTML=`<span class="tag">${tag}</span>${w}`;tokenWrap.appendChild(d)});
+ const subject=a.who; const obj=[a.what,a.extra].filter(Boolean).join(' '); const b=base(a.verb); const drills=[
+   ['現在形',`${subject} ${b}${obj?' '+obj:''}.`],
+   ['過去形',`${subject} ${past(b)}${obj?' '+obj:''}.`],
+   ['未来形',`${subject} will ${b}${obj?' '+obj:''}.`],
+   ['否定',`${subject} do not ${b}${obj?' '+obj:''}.`],
+   ['疑問','Do '+subject.toLowerCase()+' '+b+(obj?' '+obj:'')+'?']
+ ];
+ const dw=document.querySelector('#drill');dw.innerHTML='';drills.forEach((x,i)=>{const d=document.createElement('div');d.className='drill-item';d.innerHTML=`<div class="num">${i+1}</div><div><div class="small">${x[0]}</div><div class="answer">${x[1]}</div></div>`;dw.appendChild(d)});
+ document.querySelector('#result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.querySelector('#analyze').onclick=render;document.querySelector('#clear').onclick=()=>{document.querySelector('#input').value='';document.querySelector('#result').classList.remove('show')};document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{document.querySelector('#input').value=b.textContent;render()});
+render();
+</script>
+</body>
+</html>
